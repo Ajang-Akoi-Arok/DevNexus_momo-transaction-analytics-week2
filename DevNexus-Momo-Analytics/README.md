@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Welcome to our project. The goal is to build a relational database that can store, query, and analyze MTN Mobile Money (MoMo) transaction data parsed from SMS XML payloads. Every time someone sends or receives money through MoMo, the system generates an SMS message containing all the details of that transaction — who sent it, how much, when, and what the balance looks like afterward. Our job is to take that raw data and put it into a well-structured MySQL database that makes it easy to query, report on, and audit over time.
+Welcome to our project. The goal is to build a relational database that can store, query, and analyze MTN Mobile Money (MoMo) transaction data parsed from SMS XML payloads. Every time someone sends or receives money through MoMo, the system generates an SMS message containing all the details of that transaction: who sent it, how much, when, and what the balance looks like afterward. Our job is to take that raw data and put it into a well-structured MySQL database that makes it easy to query, report on, and audit over time.
 
 We designed the schema from scratch by analyzing the XML data structure and mapping out what entities we needed, how they relate to each other, and what constraints would keep the data clean and trustworthy. The result is a five-table MySQL database with foreign key relationships, performance indexes, security constraints, and JSON representations of every entity for API use.
 
@@ -56,7 +56,7 @@ The database is called `DevNexus_Momo_Analytics` and runs on MySQL. It has five 
 
 `transactions` is the central fact table. Every MoMo transaction gets a row here. It stores the financial details, links to the sender and receiver, and keeps the original XML payload so we can always go back and reprocess if needed.
 
-`transaction_participants` is the M:N junction table. It resolves the many-to-many relationship between users and transactions. A single transaction can involve multiple participants — for example, an agent facilitating a cash withdrawal — and a user participates in many transactions. Without this table we would have to repeat user data or add extra columns to `transactions`, neither of which is clean.
+`transaction_participants` is the M:N junction table. It resolves the many-to-many relationship between users and transactions. A single transaction can involve multiple participants, for example an agent facilitating a cash withdrawal, and a user participates in many transactions. Without this table we would have to repeat user data or add extra columns to `transactions`, neither of which is clean.
 
 `system_logs` tracks every ETL pipeline event, error, and processing note. The `transaction_id` column is nullable so that pipeline-level events that are not tied to any specific transaction can still be logged.
 
@@ -162,7 +162,7 @@ One `users` table handles both senders and receivers because a user is a user re
 
 We kept `raw_xml` in `transactions` because the original SMS payload is the source of truth. If a parsing bug is found later, the raw data is right there in the database and can be reprocessed without fetching anything from an external source.
 
-`transaction_participants` exists because the relationship between users and transactions is genuinely many-to-many. One transaction can involve multiple people, and one user participates in many transactions. A junction table is the correct relational solution for this — it avoids repeating columns and keeps the data normalized.
+`transaction_participants` exists because the relationship between users and transactions is genuinely many-to-many. One transaction can involve multiple people, and one user participates in many transactions. A junction table is the correct relational solution for this. It avoids repeating columns and keeps the data normalized.
 
 `system_logs` has a nullable FK to `transactions` because not every log entry is about a specific transaction. Pipeline startup events, batch processing notes, and general errors all need to be logged even when there is no transaction to link them to.
 
@@ -198,7 +198,7 @@ Unique and security constraints that protect data integrity:
 ALTER TABLE users ADD CONSTRAINT uq_users_phone UNIQUE (phone_number);
 ALTER TABLE users ADD CONSTRAINT uq_users_email UNIQUE (email);
 
--- No duplicate transaction references — makes SMS processing idempotent
+-- No duplicate transaction references, makes SMS processing idempotent
 ALTER TABLE transactions ADD CONSTRAINT uq_transaction_ref UNIQUE (transaction_ref);
 
 -- Amounts and fees can never be negative
@@ -354,7 +354,7 @@ We modeled every database entity as a JSON schema so the data can be consumed by
 }
 ```
 
-**Transaction — flat form** (`examples/json_examples/transaction.json`):
+**Transaction, flat form** (`examples/json_examples/transaction.json`):
 ```json
 {
   "transaction_id": 1001,
@@ -396,9 +396,9 @@ We modeled every database entity as a JSON schema so the data can be consumed by
 }
 ```
 
-**Complete Transaction — nested API response** (`examples/json_examples/complete_transaction.json`):
+**Complete Transaction, nested API response** (`examples/json_examples/complete_transaction.json`):
 
-This is the most important JSON object in the project. Instead of returning flat IDs the way the SQL table stores them, this object nests the full sender, receiver, and category data inline. This is what an API endpoint would return when a client requests a full transaction record — everything needed to display or process the transaction is in one document, no extra queries required.
+This is the most important JSON object in the project. Instead of returning flat IDs the way the SQL table stores them, this object nests the full sender, receiver, and category data inline. This is what an API endpoint would return when a client requests a full transaction record. Everything needed to display or process the transaction is in one document, no extra queries required.
 
 ```json
 {
@@ -500,9 +500,11 @@ The application layer takes those joined rows and assembles the nested JSON befo
 
 ## Team Collaboration
 
-Scrum Board: [Add your Scrum board link here]
+Scrum Board: [View our sprint board here](https://github.com/users/Ajang-Akoi-Arok/projects/3)
 
-Screenshots of the database running — DDL execution, table creation output, and all CRUD query results — are in `docs/screenshots/`.
+Work task sheet: [View team task breakdown here](https://docs.google.com/spreadsheets/d/12RauvSqhzc9NxeV-s3FU2WJPkTsOZ4XaF3OEtLhqhqo/edit?usp=sharing)
+
+Screenshots of the database running, DDL execution, table creation output, and all CRUD query results are in `docs/screenshots/`.
 
 Team contributions are visible through individual commits in the repository. Each team member's work is tracked through GitHub commit history and reflected on the Scrum board linked above.
 
