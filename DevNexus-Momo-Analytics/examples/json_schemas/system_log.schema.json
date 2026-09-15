@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "log_id": {
+      "type": "integer"
+    },
+    "log_level": {
+      "type": "string"
+    },
+    "log_message": {
+      "type": "string"
+    },
+    "source_file": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "integer"
+    },
+    "logged_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

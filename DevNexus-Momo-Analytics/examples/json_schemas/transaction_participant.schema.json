@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "participant_id": {
+      "type": "integer"
+    },
+    "transaction_id": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "role": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
