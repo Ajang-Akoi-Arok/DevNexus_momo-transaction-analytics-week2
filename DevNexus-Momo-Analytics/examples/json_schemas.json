@@ -1,0 +1,76 @@
+{
+  "users": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "User",
+    "type": "object",
+    "required": ["user_id", "phone_number"],
+    "properties": {
+      "user_id": { "type": "integer" },
+      "phone_number": { "type": "string", "maxLength": 15 },
+      "full_name": { "type": "string", "maxLength": 100 },
+      "email": { "type": "string", "format": "email", "maxLength": 100 },
+      "created_at": { "type": "string", "format": "date-time" },
+      "updated_at": { "type": "string", "format": "date-time" }
+    }
+  },
+  "transactions": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Transaction",
+    "type": "object",
+    "required": ["transaction_id", "amount", "transaction_type", "status"],
+    "properties": {
+      "transaction_id": { "type": "integer" },
+      "transaction_ref": { "type": "string", "maxLength": 50 },
+      "sender_id": { "type": "integer" },
+      "receiver_id": { "type": "integer" },
+      "category_id": { "type": "integer" },
+      "amount": { "type": "number", "minimum": 0 },
+      "transaction_type": { "type": "string", "enum": ["SEND", "RECEIVE", "WITHDRAW", "DEPOSIT", "PAYMENT"] },
+      "transaction_date": { "type": "string", "format": "date-time" },
+      "status": { "type": "string", "enum": ["PENDING", "COMPLETED", "FAILED", "REVERSED"] },
+      "balance_after": { "type": "number" },
+      "fee": { "type": "number", "minimum": 0 },
+      "raw_xml": { "type": "string" },
+      "created_at": { "type": "string", "format": "date-time" }
+    }
+  },
+  "transaction_categories": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "TransactionCategory",
+    "type": "object",
+    "required": ["category_id", "category_name"],
+    "properties": {
+      "category_id": { "type": "integer" },
+      "category_name": { "type": "string", "maxLength": 50 },
+      "description": { "type": "string", "maxLength": 255 },
+      "created_at": { "type": "string", "format": "date-time" }
+    }
+  },
+  "transaction_participants": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "TransactionParticipant",
+    "type": "object",
+    "required": ["participant_id", "transaction_id", "user_id", "role"],
+    "properties": {
+      "participant_id": { "type": "integer" },
+      "transaction_id": { "type": "integer" },
+      "user_id": { "type": "integer" },
+      "role": { "type": "string", "enum": ["SENDER", "RECEIVER", "AGENT", "MERCHANT", "THIRD_PARTY"] },
+      "created_at": { "type": "string", "format": "date-time" }
+    }
+  },
+  "system_logs": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "SystemLog",
+    "type": "object",
+    "required": ["log_id", "log_level", "log_message"],
+    "properties": {
+      "log_id": { "type": "integer" },
+      "log_level": { "type": "string", "enum": ["INFO", "WARNING", "ERROR", "DEBUG"] },
+      "log_message": { "type": "string" },
+      "source_file": { "type": "string", "maxLength": 255 },
+      "transaction_id": { "type": "integer" },
+      "logged_at": { "type": "string", "format": "date-time" }
+    }
+  }
+}
