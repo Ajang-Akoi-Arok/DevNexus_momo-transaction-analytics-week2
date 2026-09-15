@@ -513,3 +513,11 @@ Team contributions are visible through individual commits in the repository. Eac
 ## AI Usage
 
 Details of all AI assistance used during this project are documented in `docs/ai_usage_log.md`.
+
+## Project Team
+
+| Name                |
+| ------------------- |
+| Ajang Biar          |
+| Chidiebele Anigbogu |
+| Sochukwuma Chukwu   |
