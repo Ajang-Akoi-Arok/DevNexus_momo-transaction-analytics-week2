@@ -1,0 +1,15 @@
+{
+  "transaction_id": 1001,
+  "transaction_ref": "TXN202609150001",
+  "sender_id": 1,
+  "receiver_id": 2,
+  "category_id": 1,
+  "amount": 5000.00,
+  "transaction_type": "SEND",
+  "transaction_date": "2026-09-15T11:00:00",
+  "status": "COMPLETED",
+  "balance_after": 15000.00,
+  "fee": 50.00,
+  "raw_xml": "<transaction><amount>5000.00</amount></transaction>",
+  "created_at": "2026-09-15T11:00:00"
+}

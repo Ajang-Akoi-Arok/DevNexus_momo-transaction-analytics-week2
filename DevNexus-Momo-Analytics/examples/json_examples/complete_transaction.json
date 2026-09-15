@@ -1,0 +1,30 @@
+{
+  "transaction_id": 1001,
+  "transaction_ref": "TXN202609150001",
+  "amount": 5000.00,
+  "transaction_type": "SEND",
+  "transaction_date": "2026-09-15T11:00:00",
+  "status": "COMPLETED",
+  "balance_after": 15000.00,
+  "fee": 50.00,
+
+  "sender": {
+    "user_id": 1,
+    "phone_number": "0781234567",
+    "full_name": "John Doe",
+    "email": "j.Doe@alustudent.com"
+  },
+
+  "receiver": {
+    "user_id": 2,
+    "phone_number": "0798765432",
+    "full_name": "Jane Smith",
+    "email": "j.smith@alustudent.com"
+  },
+
+  "category": {
+    "category_id": 1,
+    "category_name": "Money Transfer",
+    "description": "For sporty and financial transactions"
+  }
+}

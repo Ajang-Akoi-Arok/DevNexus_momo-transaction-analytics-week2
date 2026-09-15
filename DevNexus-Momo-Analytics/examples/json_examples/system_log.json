@@ -1,0 +1,8 @@
+{
+  "log_id": 1,
+  "log_level": "INFO",
+  "log_message": "Transaction completed successfully",
+  "source_file": "transaction_processor.py",
+  "transaction_id": 1001,
+  "logged_at": "2026-09-15T11:00:05"
+}
